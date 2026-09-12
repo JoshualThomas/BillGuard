@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BillGuard Alert: {{ bill.vendor }} Due Soon</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background-color: #09090b;
+      color: #fafafa;
+      margin: 0;
+      padding: 24px;
+    }
+    .card {
+      max-width: 540px;
+      margin: 0 auto;
+      background: #18181b;
+      border: 1px solid #27272a;
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      border-bottom: 1px solid #27272a;
+      padding-bottom: 16px;
+    }
+    .logo {
+      font-size: 20px;
+      font-weight: 700;
+      color: #3b82f6;
+      letter-spacing: -0.5px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .badge-urgent { background: #ef444420; color: #ef4444; border: 1px solid #ef444440; }
+    .badge-warning { background: #f59e0b20; color: #f59e0b; border: 1px solid #f59e0b40; }
+    .badge-info { background: #3b82f620; color: #3b82f6; border: 1px solid #3b82f640; }
+    
+    .amount-box {
+      background: #27272a40;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      margin: 20px 0;
+      border: 1px dashed #3f3f46;
+    }
+    .amount-label { font-size: 13px; color: #a1a1aa; text-transform: uppercase; letter-spacing: 1px; }
+    .amount-val { font-size: 36px; font-weight: 800; color: #ffffff; margin-top: 4px; }
+    
+    .details-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #27272a;
+      font-size: 14px;
+    }
+    .details-label { color: #a1a1aa; }
+    .details-val { font-weight: 600; color: #f4f4f5; }
+
+    .anomaly-box {
+      background: #ef444415;
+      border-left: 4px solid #ef4444;
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      margin: 16px 0;
+      font-size: 13px;
+      color: #fca5a5;
+    }
+
+    .btn-group {
+      margin-top: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .btn {
+      display: block;
+      text-align: center;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+    .btn-primary { background: #3b82f6; color: #ffffff; }
+    .btn-secondary { background: #27272a; color: #d4d4d8; border: 1px solid #3f3f46; }
+    .btn-subtle { background: transparent; color: #71717a; font-size: 12px; padding: 6px; }
+
+    .footer {
+      margin-top: 32px;
+      text-align: center;
+      font-size: 11px;
+      color: #71717a;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <div class="logo">🛡️ BillGuard</div>
+      <span class="badge {{ badge_class }}">{{ alert_tier }}</span>
+    </div>
+
+    <h2 style="margin: 0 0 8px 0; font-size: 20px; font-weight: 700;">
+      {{ bill.vendor }} Payment Reminder
+    </h2>
+    <p style="margin: 0; color: #a1a1aa; font-size: 14px;">
+      {{ message_lead }}
+    </p>
+
+    <div class="amount-box">
+      <div class="amount-label">Total Due Amount</div>
+      <div class="amount-val">{{ bill.currency_symbol or '₹' }}{{ "{:,.2f}".format(bill.amount) }}</div>
+    </div>
+
+    {% if anomaly_warning %}
+    <div class="anomaly-box">
+      ⚠️ <strong>AI Anomaly Detected:</strong> {{ anomaly_warning }}
+    </div>
+    {% endif %}
+
+    <div class="details-row">
+      <span class="details-label">Vendor / Service</span>
+      <span class="details-val">{{ bill.vendor }}</span>
+    </div>
+    <div class="details-row">
+      <span class="details-label">Due Date</span>
+      <span class="details-val">{{ due_date_formatted }}</span>
+    </div>
+    <div class="details-row">
+      <span class="details-label">Category</span>
+      <span class="details-val">{{ bill.category or 'General Utility' }}</span>
+    </div>
+
+    <div class="btn-group">
+      <!-- 1-Click Magic Action: Mark as Paid -->
+      <a href="{{ magic_mark_paid_url }}" class="btn btn-primary">
+        ✅ Mark as Paid (1-Click)
+      </a>
+      
+      <!-- 1-Click Magic Action: Snooze 24h -->
+      <a href="{{ magic_snooze_url }}" class="btn btn-secondary">
+        ⏰ Snooze Reminder for 24h
+      </a>
+
+      <!-- Direct Dashboard Deep Link -->
+      <a href="{{ dashboard_bill_url }}" class="btn btn-subtle">
+        Open in BillGuard Dashboard &rarr;
+      </a>
+    </div>
+
+    <div class="footer">
+      An `.ics` calendar invite has been automatically attached to this email.<br>
+      BillGuard Autonomous Notification Service • Sent to {{ user_email }}
+    </div>
+  </div>
+</body>
+</html>
