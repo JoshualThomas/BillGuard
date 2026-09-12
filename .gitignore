@@ -1,0 +1,67 @@
+# Operating System Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Environment variables & secrets
+.env
+.env.*
+!.env.example
+!.env.local.example
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Node / Frontend
+node_modules/
+client/node_modules/
+client/.next/
+client/out/
+client/build/
+client/.turbo/
+.vercel
+
+# Python / Backend
+__pycache__/
+*.py[cod]
+*$py.class
+server/__pycache__/
+server/*/__pycache__/
+server/*/*/__pycache__/
+.pytest_cache/
+.coverage
+htmlcov/
+*.egg-info/
+dist/
+build/
+
+# Virtual Environments
+venv/
+.venv/
+env/
+server/venv/
+server/.venv/
+ENV/
+
+# Database files
+*.sqlite3
+*.db
+postgres_data/
+
+# IDE & Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporary files & uploads
+uploads/
+server/uploads/
+scratch/
+tmp/
+temp/
