@@ -85,11 +85,11 @@ flowchart TD
 
 | Role | Member | Primary Focus Area | Key Deliverables |
 | :--- | :--- | :--- | :--- |
-| **Team Lead & Full-Stack Architect** | **Member 1** | System Design, PR Reviews & Integration | Repo scaffolding, DB schemas, API contracts, integration testing, code review approval. |
-| **Frontend & UI/UX Specialist** | **Member 2** | Next.js Client & Interactive Views | Dashboard layout, Bill table with filters, Add/Upload Bill modal, Recharts analytics, dark mode. |
-| **Backend & Database Engineer** | **Member 3** | FastAPI Server, Database & CRUD | User Auth (JWT), CRUD APIs for bills/subscriptions, Alembic migrations, PostgreSQL indexing. |
-| **AI & Intelligence Engineer** | **Member 4** | Gemini OCR & Financial Reasoning | Multimodal receipt parser endpoint, anomaly detection algorithm, AI monthly digest generator. |
-| **Integrations, DevOps & QA Lead** | **Member 5** | Notifications, CI/CD & Deployments | Resend Email alerts, Telegram bot hooks, GitHub Actions CI workflows, Vercel & Render deployments. |
+| **Team Lead & Full-Stack Architect** | **Lena Noby** | System Design, PR Reviews & Integration | Repo scaffolding, DB schemas, API contracts, integration testing, code review approval. |
+| **Frontend & UI/UX Specialist** | **Sravan Salim** | Next.js Client & Interactive Views | Dashboard layout, Bill table with filters, Add/Upload Bill modal, Recharts analytics, dark mode. |
+| **Backend & Database Engineer** | **Alan I K** | FastAPI Server, Database & CRUD | User Auth (JWT), CRUD APIs for bills/subscriptions, Alembic migrations, PostgreSQL indexing. |
+| **AI & Intelligence Engineer** | **Joshual Thomas** | Gemini OCR & Financial Reasoning | Multimodal receipt parser endpoint, anomaly detection algorithm, AI monthly digest generator. |
+| **Integrations, DevOps & QA Lead** | **Huda Salam** | Notifications, CI/CD & Deployments | Resend Email alerts, Telegram bot hooks, GitHub Actions CI workflows, Vercel & Render deployments. |
 
 For detailed information on the technologies used, see [TECH_STACK.md](TECH_STACK.md).
 
